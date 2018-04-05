@@ -15,7 +15,7 @@ def hashing_function(pathfile):
         while 1:
             # Read next byte
             byte_read = f.read(1)
-            #print('byte read in ASCII :                               ', byte_read)
+            print('byte read in ASCII :                               ', byte_read)
 
             # Stop if there's no byte left
             if not byte_read:
@@ -24,18 +24,18 @@ def hashing_function(pathfile):
             # BitVector from byte read
             byte_read = BitVector(textstring = byte_read)
 
-            #print('hash before shift : ', hash_val)
+            print('hash before shift : ', hash_val)
             # Circular shif left by 4 bits
             hash_val = hash_val << 4
-            #print('hash after shift :  ', hash_val)
+            print('hash after shift :  ', hash_val)
 
             # XOR last byte of hash and byte read
             temp = hash_val[24:32] ^ byte_read
-            #print('byte in binary :                            ', byte_read)
-            #print('xor res :                                   ', temp)
+            print('byte in binary :                            ', byte_read)
+            print('xor res :                                   ', temp)
             hash_val[24:32] = temp
-            #print('hash after xor :    ', hash_val)
-            #print('')
+            print('hash after xor :    ', hash_val)
+            print('')
 
     return hash_val
 
