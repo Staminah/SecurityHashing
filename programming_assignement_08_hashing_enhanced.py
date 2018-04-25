@@ -8,6 +8,12 @@ def hashing_function(pathfile):
     # Init hash value
     hash_val = BitVector(intVal = 0, size = 32)
 
+    # Number of char read
+    char_count = 0
+
+    #To know when the file is entirely prcressed
+    end_of_file = False
+
     #print('hash value at start : ', hash_val)
 
     # Loop byte by byte
@@ -16,16 +22,26 @@ def hashing_function(pathfile):
             # Read next byte
             byte_read = f.read(1)
 
-            # Stop if there's no byte left
-            if not byte_read:
-                break
-            else :
-                print('-----------------------------------------------------')
-                print('byte read in ASCII :                               ', byte_read)
-                print('-----------------------------------------------------')
+            print('-----------------------------------------------------')
 
-            # BitVector from byte read
-            byte_read = BitVector(textstring = byte_read)
+            # End of file : Use message length as a last byte
+            if not byte_read:
+                try:
+                    print('Padding step :', char_count, 'characters in message.')
+                    # Creates a byte containing the lenght of the message in characters
+                    byte_read = BitVector( intVal = char_count, size = 8 )
+                    end_of_file = True
+                except:
+                    print('Message is too big ! Must be less than 255 characters long.')
+                    return 'Error Message too long'
+            else:
+                print('byte read in ASCII :                               ', byte_read)
+                # Increments number of char read
+                char_count += 1
+                # BitVector from byte read
+                byte_read = BitVector(textstring = byte_read)
+
+            print('-----------------------------------------------------')
 
             print('hash before shift : ', hash_val)
             # Circular shif left by 4 bits
@@ -39,6 +55,16 @@ def hashing_function(pathfile):
             hash_val[24:32] = temp
             print('hash after xor :    ', hash_val)
             print('')
+
+            # Permutes the first and third byte of the hash
+            first_byte = hash_val[0:8]
+            hash_val[0:8] = hash_val[16:24]
+            hash_val[16:24] = first_byte
+
+            # Exit the loop if the file is entirely processed
+            if end_of_file:
+                break
+
 
     return hash_val
 

@@ -6,13 +6,13 @@ import BitVector
 
 def main(reference_hash, hash_after_alter):
 
+    # The 56 bits string to add to the file to hack the hashing and create a collision
     final_result = BitVector(size = 56)
 
+    # Hash we want to collision with
     reference_hash = [int(i) for i in reference_hash]
+    # Hash obtained by hashing the file to which we want to add the generated string of bits to obtain the collision
     hash_after_alter = [int(i) for i in hash_after_alter]
-
-    # print('reference hash : ', reference_hash)
-    # print('after alt hash : ', hash_after_alter)
 
     reference_hash = BitVector(bitlist = reference_hash)
     hash_after_alter = BitVector(bitlist = hash_after_alter)
@@ -20,30 +20,37 @@ def main(reference_hash, hash_after_alter):
     print('reference hash : ', reference_hash)
     print('after alt hash : ', hash_after_alter)
 
-    print('reference hash : ', reference_hash)
-    print('after alt hash : ', hash_after_alter)
-
+    # Loop 7 times to generates the 7 bytes to add at the end of the file to hack hashing
     for i in range(7):
-        print(i)
 
+        # HASHING STEP 1 : Circular left shift
         hash_after_alter = hash_after_alter << 4
 
+        # The sixth first bytes are built by merge 4 bits of the reference hash and 4 zeros
         if i <= 5:
-            # 4 bits by 4 bits
+            # Build the byte to XOR with the hash by extracting the 4 leftest bits of the reference hash and concatening '0000'
+            # We add '0000' because this part is lost at the next iterations, because the shit is only by 4 and not 8.
             reference_bits = reference_hash[i*4:(i+1)*4] + BitVector(intVal = 0, size=4)
             print(reference_bits)
-
+        # The last byte takes directly the 8 last bits of the reference hash without adding '0000'
         else:
+            # The last byte is created by extacting the last 8 bits in one time and there are no '0000' padded
+            # We can do this in one step because this is the last iteration and the last 4 bits won't be overwritten
             reference_bits = reference_hash[i*4:(i+2)*4] # Take the last byte in one shot
 
+        # XOR between the last 8 bits of the current hash and the 8 bits built previously =>  A xor B = C  <=> C xor B = A
         temp = hash_after_alter[24:32] ^ reference_bits
+        # Append the output of the XOR to the final result (56 bits string)
         final_result[i*8:(i+1)*8] = temp
 
         print(temp)
 
+        # HASHING STEP 2: Replace the 8 last bits of the current hash by the 8 ones built previoulsy
         hash_after_alter[24:32] = reference_bits
 
+    # Display the final result in Binary
     print('final : ', final_result)
+    # Display the final result in ASCII
     print('final str :', final_result.get_bitvector_in_ascii())
 
 

@@ -12,10 +12,11 @@ def main(filename):
     # Removes \n
     hash_list = [x.strip() for x in hash_list]
 
-    # Collision detection
-    seen = {}
-    dupes = []
+    seen = {} # Contains hashes met and number of time they are in the file
+    dupes = [] # Contains hashes that are multiple times in the file
 
+    # Iterates over hashes list and add first-time-seen hash in seen dictionary
+    # add duplicated hashes in dupes list
     for hash in hash_list:
         if hash not in seen:
             seen[hash] = 1
@@ -24,6 +25,7 @@ def main(filename):
                 dupes.append(hash)
             seen[hash] += 1
 
+    # Display the results
     print('\nHashes entries : ', seen, '\n')
     print('Duplicated hashes : ', dupes)
 
