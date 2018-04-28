@@ -1,3 +1,23 @@
+"""
+
+### Hashing
+
+Usage :
+
+python programming_assignement_08_hashing.py [path_to_the_directory]
+
+Creates a file named `hashes.txt` containing the output. Is the same as the first
+hashing script but this time a padding with the lenght of the message is used and
+also a permutation is done.
+
+--------------------------------------------------------------------------------
+
+Authors : Fleury Anthony, Schnaebele Marc
+Date    : 28.04.2018
+
+"""
+
+
 #!/usr/bin/env python
 
 import sys, os

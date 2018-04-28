@@ -1,3 +1,22 @@
+"""
+
+### Collision testing
+
+Usage :
+
+python programming_assignement_08_collision_test.py [path_to_file_containing_the_hashes]
+
+Uses the output file of the hashing script as input of the collision test file.
+The output is console only and displays a dictionnary containing all the hashes and
+their number of occurrences. An other array lists all the hashes that are duplicated.
+
+--------------------------------------------------------------------------------
+
+Authors : Fleury Anthony, Schnaebele Marc
+Date    : 28.04.2018
+
+"""
+
 #!/usr/bin/env python
 
 import sys, os

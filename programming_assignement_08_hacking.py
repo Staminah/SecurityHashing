@@ -1,3 +1,25 @@
+"""
+
+### Hacking
+
+Usage :
+
+python programming_assignement_08_hacking.py [hash_of_original_msg] [hash_of_corrupted_msg]
+
+**First arg :** Hash of the original message to create a collision with.
+**Second arg :** Hash of the corrupted message you want to send.
+
+The script generates a 58 bits string that is possible to add at the end of your corrupted message
+(possible problem of encoding. Not every bytes of this string can be encoded in ASCII ...).
+At this point, your new corrupted message has the same hash as the original message. We created a collision !
+
+--------------------------------------------------------------------------------
+
+Authors : Fleury Anthony, Schnaebele Marc
+Date    : 28.04.2018
+
+"""
+
 #!/usr/bin/env python
 
 import sys, os

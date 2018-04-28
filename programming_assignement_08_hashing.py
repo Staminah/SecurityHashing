@@ -1,3 +1,20 @@
+"""
+
+### Hashing 
+
+Usage :
+
+python programming_assignement_08_hashing.py [path_to_the_directory]
+
+Creates a file named `hashes.txt` containing the output.
+
+--------------------------------------------------------------------------------
+
+Authors : Fleury Anthony, Schnaebele Marc
+Date    : 28.04.2018
+
+"""
+
 #!/usr/bin/env python
 
 import sys, os
